@@ -5,7 +5,7 @@ import 'package:delivery_app/src/features/data/repositories/auth/signUpRepositor
 import 'package:delivery_app/src/features/domain/interfaces/interfaces.dart';
 import 'package:delivery_app/src/services/firebase/AuthFirebaseServices/AuthFirebaseInterfaces.dart';
 import 'package:delivery_app/src/services/firebase/AuthFirebaseServices/SignUpAuthService.dart';
-import 'package:delivery_app/src/services/firebase/AuthFirebaseServices/decodable/signInDecodable.dart';
+import 'package:delivery_app/src/services/firebase/AuthFirebaseServices/decodable/signUpDecodable.dart';
 import 'package:delivery_app/src/utils/helpers/ResultTypes/ResultType.dart';
 
 class DefaultSignUpRepository extends SignUpRepository {
@@ -17,9 +17,15 @@ class DefaultSignUpRepository extends SignUpRepository {
     : _signUpService = signUpService ?? DefaultSignUpService();
 
   @override
-  Future<Result<SignInDecodable, Failure>> signUp({required SignUpRepositoryParameters params}) {
-    // TODO: implement signUp
-    throw UnimplementedError();
+  Future<Result<SignUpDecodable, Failure>> signUp({required SignUpRepositoryParameters params}) async {
+    
+    try{
+      final result = await _signUpService.signUp(bodyParameters: params.toMap());
+      SignUpDecodable decodable = SignUpDecodable.fromJson(result);
+      return Result.success(decodable);
+    } on Failure catch(f) {
+      return Result.failure(Failure.getFirebaseAuthErrorMessage(error: f.error));
+    }
   }
 
 }
