@@ -2,7 +2,7 @@
 import 'package:delivery_app/src/base/apiService/apiService.dart';
 
 abstract class BaseFirebaseServices {
-  ApiServices apiService = DefaultApiServices();
+  ApiService apiService = DefaultApiService();
 
   static String baseURL = 'https://identitytoolkit.googleapis.com/v1/';
   static String adminToken = 'AIzaSyDh4J0PdBK2-L-zUSAo5kPiYQMz0LaaJBs';

@@ -14,7 +14,7 @@ abstract class _Constants {
 
 void main() {
 
-  final ApiService _testApiService = DefaultApiServices(); 
+  final ApiService _testApiService = DefaultApiService(); 
   
   group('Test correct Connection of Api Service', () {
 

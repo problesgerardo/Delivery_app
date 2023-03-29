@@ -6,7 +6,7 @@ class DefaultRealtimeDatabaseService extends RealtimeDatabaseService {
 
   final ApiService _apiService;
 
-  DefaultRealtimeDatabaseService({ApiService? apiService}) : _apiService = apiService ?? DefaultApiServices();
+  DefaultRealtimeDatabaseService({ApiService? apiService}) : _apiService = apiService ?? DefaultApiService();
 
   @override
   Future<Map<String, dynamic>> getData({required String path}) async {

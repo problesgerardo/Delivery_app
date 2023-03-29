@@ -34,7 +34,7 @@ abstract class ApiService {
 
 }
 
-class DefaultApiServices extends ApiService {
+class DefaultApiService extends ApiService {
   @override
   Future<Map<String, dynamic>> getDataFromGetRequest({ required String url, Map<String, String>? headers}) async {
     final _url = Uri.parse(url);
