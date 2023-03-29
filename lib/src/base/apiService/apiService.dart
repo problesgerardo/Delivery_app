@@ -13,7 +13,7 @@ abstract class _Exceptions {
 
 }
 
-abstract class ApiServices {
+abstract class ApiService {
 
   Future <Map<String, dynamic>> getDataFromPostRequest({
     required Map<String, dynamic> bodyParameters, 
@@ -34,7 +34,7 @@ abstract class ApiServices {
 
 }
 
-class DefaultApiServices extends ApiServices {
+class DefaultApiServices extends ApiService {
   @override
   Future<Map<String, dynamic>> getDataFromGetRequest({ required String url, Map<String, String>? headers}) async {
     final _url = Uri.parse(url);
