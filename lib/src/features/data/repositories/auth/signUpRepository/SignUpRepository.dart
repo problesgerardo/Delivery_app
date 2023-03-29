@@ -24,7 +24,7 @@ class DefaultSignUpRepository extends SignUpRepository {
       SignUpDecodable decodable = SignUpDecodable.fromJson(result);
       return Result.success(decodable);
     } on Failure catch(f) {
-      return Result.failure(f);
+      return Result.failure(Failure.getFirebaseAuthErrorMessage(error: f.error));
     }
   }
 
