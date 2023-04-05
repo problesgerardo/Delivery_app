@@ -1,6 +1,6 @@
 
 
-import 'package:delivery_app/src/services/firebase/AuthFirebaseServices/AuthFirebaseInterfaces.dart';
+import 'package:delivery_app/src/services/firebase/AuthFirebaseServices/interfaces/AuthFirebaseInterfaces.dart';
 
 class DefaultSignUpService extends SignUpService {
   @override

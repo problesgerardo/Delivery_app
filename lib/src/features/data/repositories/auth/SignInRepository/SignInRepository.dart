@@ -2,8 +2,8 @@
 import 'package:delivery_app/src/features/data/repositories/auth/SignInRepository/SignInBodyParameters.dart';
 import 'package:delivery_app/src/base/apiService/AppError.dart';
 import 'package:delivery_app/src/features/domain/interfaces/Interfaces.dart';
-import 'package:delivery_app/src/services/firebase/AuthFirebaseServices/AuthFirebaseInterfaces.dart';
-import 'package:delivery_app/src/services/firebase/AuthFirebaseServices/SignInAuthService.dart';
+import 'package:delivery_app/src/services/firebase/AuthFirebaseServices/interfaces/AuthFirebaseInterfaces.dart';
+import 'package:delivery_app/src/services/firebase/AuthFirebaseServices/services/SignInAuthService.dart';
 import 'package:delivery_app/src/utils/helpers/ResultTypes/ResultType.dart';
 import 'package:delivery_app/src/services/firebase/AuthFirebaseServices/decodable/signInDecodable.dart';
 
