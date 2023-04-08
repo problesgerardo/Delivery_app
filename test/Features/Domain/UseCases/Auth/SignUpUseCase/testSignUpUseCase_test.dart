@@ -5,7 +5,7 @@ import 'package:delivery_app/src/base/constants/ErrorMessage.dart';
 import 'package:delivery_app/src/features/domain/Entities/Auth/SignUpEntity/SignUpEntity.dart';
 import 'package:delivery_app/src/features/domain/useCases/Auth/SignUpUseCase/SignUpUseCase.dart';
 import 'package:delivery_app/src/features/domain/useCases/Auth/SignUpUseCase/SignUpUseCaseParameters.dart';
-import 'package:delivery_app/src/services/firebase/AuthFirebaseServices/decodable/authErrorDecodable.dart';
+import 'package:delivery_app/src/services/FirebaseServices/AuthFirebaseServices/decodable/authErrorDecodable.dart';
 import 'package:delivery_app/src/utils/helpers/ResultTypes/ResultType.dart';
 import 'package:flutter_test/flutter_test.dart';
 

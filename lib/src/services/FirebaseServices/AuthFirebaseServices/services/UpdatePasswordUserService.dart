@@ -1,7 +1,8 @@
 
 
-import 'package:delivery_app/src/services/firebase/AuthFirebaseServices/bodyParameters/UpdatePasswordUserServiceBodyParameters.dart';
-import 'package:delivery_app/src/services/firebase/AuthFirebaseServices/interfaces/AuthFirebaseInterfaces.dart';
+import 'package:delivery_app/src/services/FirebaseServices/AuthFirebaseServices/bodyParameters/UpdatePasswordUserServiceBodyParameters.dart';
+import 'package:delivery_app/src/services/FirebaseServices/AuthFirebaseServices/interfaces/AuthFirebaseInterfaces.dart';
+
 
 class DefaultUpdatePasswordUserService extends UpdatePasswordUserService{
 

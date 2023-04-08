@@ -3,9 +3,9 @@
 import 'package:delivery_app/src/base/apiService/AppError.dart';
 import 'package:delivery_app/src/features/data/repositories/auth/signUpRepository/SignUpRepositoryParameters.dart';
 import 'package:delivery_app/src/features/domain/interfaces/interfaces.dart';
-import 'package:delivery_app/src/services/firebase/AuthFirebaseServices/interfaces/AuthFirebaseInterfaces.dart';
-import 'package:delivery_app/src/services/firebase/AuthFirebaseServices/decodable/signUpDecodable.dart';
-import 'package:delivery_app/src/services/firebase/AuthFirebaseServices/services/SignUpAuthService.dart';
+import 'package:delivery_app/src/services/FirebaseServices/AuthFirebaseServices/decodable/signUpDecodable.dart';
+import 'package:delivery_app/src/services/FirebaseServices/AuthFirebaseServices/interfaces/AuthFirebaseInterfaces.dart';
+import 'package:delivery_app/src/services/FirebaseServices/AuthFirebaseServices/services/SignUpAuthService.dart';
 import 'package:delivery_app/src/utils/helpers/ResultTypes/ResultType.dart';
 
 class DefaultSignUpRepository extends SignUpRepository {
