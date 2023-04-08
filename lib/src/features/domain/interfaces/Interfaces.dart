@@ -7,6 +7,7 @@ import 'package:delivery_app/src/features/data/repositories/auth/signUpRepositor
 import 'package:delivery_app/src/features/data/repositories/user/UserBodyParameters.dart';
 import 'package:delivery_app/src/services/firebase/AuthFirebaseServices/decodable/signInDecodable.dart';
 import 'package:delivery_app/src/services/firebase/AuthFirebaseServices/decodable/signUpDecodable.dart';
+import 'package:delivery_app/src/services/firebase/AuthFirebaseServices/decodable/updatePasswordDecodable.dart';
 import 'package:delivery_app/src/utils/helpers/ResultTypes/ResultType.dart';
 
 //Auth Repositories
@@ -21,6 +22,11 @@ abstract class SignUpRepository {
   Future<Result<SignUpDecodable, Failure>> signUp({
     required SignUpRepositoryParameters params
   });
+}
+
+abstract class UpdatePasswordRepository {
+
+  Future<Result<UpdatePasswordDecodable, Failure >> updatePassword({ required String email });
 }
 
 //User Database Repositories
