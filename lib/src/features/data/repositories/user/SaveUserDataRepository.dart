@@ -4,8 +4,8 @@ import 'package:delivery_app/src/features/data/repositories/user/UserBodyParamet
 import 'package:delivery_app/src/features/data/decodables/user/UserDecodable.dart';
 import 'package:delivery_app/src/base/apiService/AppError.dart';
 import 'package:delivery_app/src/features/domain/interfaces/interfaces.dart';
-import 'package:delivery_app/src/services/firebase/RealtimeDatabaseService/Interface/Interface.dart';
-import 'package:delivery_app/src/services/firebase/RealtimeDatabaseService/Services/RealtimeDatabaseService.dart';
+import 'package:delivery_app/src/services/FirebaseServices/RealtimeDatabaseService/Interface/Interface.dart';
+import 'package:delivery_app/src/services/FirebaseServices/RealtimeDatabaseService/Services/RealtimeDatabaseService.dart';
 import 'package:delivery_app/src/utils/helpers/ResultTypes/ResultType.dart';
 
 

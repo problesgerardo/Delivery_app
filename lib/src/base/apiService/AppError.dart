@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 import 'package:delivery_app/src/base/constants/ErrorMessage.dart';
-import 'package:delivery_app/src/services/firebase/AuthFirebaseServices/decodable/authErrorDecodable.dart';
+import 'package:delivery_app/src/services/FirebaseServices/AuthFirebaseServices/decodable/authErrorDecodable.dart';
 
 class Failure {
 

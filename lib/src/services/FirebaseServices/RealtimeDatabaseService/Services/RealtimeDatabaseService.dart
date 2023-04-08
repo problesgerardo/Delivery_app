@@ -1,6 +1,6 @@
 import 'package:delivery_app/src/base/apiService/AppError.dart';
 import 'package:delivery_app/src/base/apiService/apiService.dart';
-import 'package:delivery_app/src/services/firebase/RealtimeDatabaseService/Interface/Interface.dart';
+import 'package:delivery_app/src/services/FirebaseServices/RealtimeDatabaseService/Interface/Interface.dart';
 
 class DefaultRealtimeDatabaseService extends RealtimeDatabaseService {
 

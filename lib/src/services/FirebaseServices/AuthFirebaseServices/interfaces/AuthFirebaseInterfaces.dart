@@ -10,6 +10,7 @@ abstract class BaseFirebaseServices {
   static String signUpEndpoint = 'accounts:signUp?key=';
   static String signInEndpoint = 'accounts:signInWithPassword?key=';
   static String updatePasswordEndpoint = 'accounts:sendOobCode?key=';
+  static String getUserDataEndpoint = 'accounts:lookup?key=';
 
 }
 
@@ -35,4 +36,12 @@ abstract class UpdatePasswordUserService extends BaseFirebaseServices {
   Future <Map<String, dynamic>> updatePassword({
     required String email
   });   
+}
+
+abstract class GetUserAuthDataService extends BaseFirebaseServices {
+  String endpoint = BaseFirebaseServices.baseURL + BaseFirebaseServices.getUserDataEndpoint + BaseFirebaseServices.adminToken;
+
+  Future <Map<String, dynamic>> getUserAuthData({
+    required Map<String, dynamic> bodyParameters
+  });
 }
