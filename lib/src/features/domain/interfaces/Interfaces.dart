@@ -15,16 +15,13 @@ import '../../data/repositories/auth/UserAuthData/UserAuthDataRepositoryBodyPara
 
 //Auth Repositories
 abstract class SignInRepository {
-  Future<Result<SignInDecodable, Failure>> signIn({ 
-    required SignInBodyParameters params 
-  });
+
+  Future<Result<SignInDecodable, Failure>> signIn({ required SignInBodyParameters params });
 }
 
 abstract class SignUpRepository {
 
-  Future<Result<SignUpDecodable, Failure>> signUp({
-    required SignUpRepositoryParameters params
-  });
+  Future<Result<SignUpDecodable, Failure>> signUp({ required SignUpRepositoryParameters params });
 }
 
 abstract class UpdatePasswordRepository {
@@ -39,5 +36,11 @@ abstract class UserAuthDataRepository {
 
 //User Database Repositories
 abstract class SaveUserDataRepository {
+
   Future<Result<UserDecodable, Failure>> saveUserData({ required UserBodyParameters parameters });
+}
+
+abstract class FetchUserDataRepository {
+  
+  Future<Result<UserDecodable, Failure>> fetchUserData({ required String localId });
 }
