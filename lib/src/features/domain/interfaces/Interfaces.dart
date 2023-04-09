@@ -44,3 +44,18 @@ abstract class FetchUserDataRepository {
   
   Future<Result<UserDecodable, Failure>> fetchUserData({ required String localId });
 }
+
+//Local Storage
+abstract class SaveLocalStorageRepository {
+
+  Future<void> saveInLocalStorage({ required String key, required String value });
+}
+
+abstract class FetchLocalStorageRepository {
+
+  Future<String?> fetchInLocalStorage({ required String key });
+}
+
+abstract class RemoveLocalStorageRepository {
+  Future<void> removeInLocalStorage({ required String key });
+}
