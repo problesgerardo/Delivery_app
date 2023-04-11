@@ -22,19 +22,17 @@ class DefaultUserAuthDataUseCase extends UserAuthDataUseCase {
 
   @override
   Future<Result<UserAuthDataEntity, Failure>> execute({required GetUserDataUseCaseParameters parameters}) {
-    
-    return _userAuthDataRepository.getUserData(parameters: GetUserDataBodyParameters(idToken: parameters.idToken)).then((result){
-      switch(result.status){
+
+    return _userAuthDataRepository.getUserData(parameters: GetUserDataBodyParameters(idToken: parameters.idToken)).then((result) {
+      switch (result.status) {
         
         case ResultStatus.success:
-          if(result.value == null) {
+          if (result.value == null) {
             return Result.failure(Failure.fromMessage(message: AppFailureMessages.unExpectedErrorMessage));
           }
-          
           return Result.success(UserAuthDataEntity.fromJson(result.value!.toJson()));
-          
         case ResultStatus.error:
-          Result.failure(result.error);
+          return Result.failure(result.error);
       }
     });
   }
