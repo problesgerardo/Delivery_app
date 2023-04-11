@@ -1,5 +1,6 @@
 
 import 'package:delivery_app/src/colors/colors.dart';
+import 'package:delivery_app/src/features/presentation/widgets/alerts/ErrorAlertView.dart';
 import 'package:delivery_app/src/features/presentation/widgets/alerts/alert_dialog.dart';
 import 'package:delivery_app/src/features/presentation/widgets/buttons/rounded_button.dart';
 import 'package:flutter/material.dart';
