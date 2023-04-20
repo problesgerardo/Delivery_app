@@ -9,12 +9,13 @@ class LoadingView extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircularProgressIndicator(
               backgroundColor: orange,
             ),
-            SizedBox(height: 10.0,),
-            Text('Loading....'),
+            const SizedBox(height: 10.0,),
+            const Text('Loading....'),
           ],
         ),
       ),
