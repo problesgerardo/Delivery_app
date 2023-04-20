@@ -59,6 +59,7 @@ extension on DefaultSignUpUseCase {
       localId: entity.localId,
       role: UserRole.user,
       userName: params.userName,
+      email: params.email,
       phone: params.phone,
       dateOfBirth: params.date,
       startDate: DateHelpers.getStartDate(),
