@@ -19,7 +19,7 @@ void ShowAlertDialog(
     final sizeHeight = MediaQuery.of(context).size.height;
     final sizeWidth = MediaQuery.of(context).size.width;
 
-    print(sizeWidth * 0.047);
+    //print(sizeWidth * 0.047);
 
       return AlertDialog(
         shape: RoundedRectangleBorder(
