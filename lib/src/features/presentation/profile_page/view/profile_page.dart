@@ -1,7 +1,14 @@
+import 'package:delivery_app/src/features/presentation/profile_page/model/ProfileTabViewModel.dart';
+import 'package:delivery_app/src/features/presentation/state_providers/LoadingStateProvider.dart';
+import 'package:delivery_app/src/features/presentation/welcome_page/view/welcome_page.dart';
+import 'package:delivery_app/src/features/presentation/widgets/buttons/rounded_button.dart';
 import 'package:delivery_app/src/features/presentation/widgets/headers/header_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:delivery_app/src/colors/colors.dart';
+import 'package:provider/provider.dart';
+
+import '../../widgets/alerts/alert_dialog.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -11,26 +18,41 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
+  final ProfileTabViewModel _viewModel;
+
+  _ProfilePageState({ ProfileTabViewModel? profileTabViewModel })
+    : _viewModel = profileTabViewModel ?? DefaultProfileTabViewModel();
+
   @override
   Widget build(BuildContext context) {
+
+    //Inicializamos el ViewModel
+    _viewModel.initState(loadingState: Provider.of<LoadingStateProvider>(context));
+
+
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            GestureDetector (
-              onTap: () => Navigator.pushNamed(context, 'profile-detail'),
-              child: _header(context)
-            ),
-            _contentProfile(context),
-          ],
-        ),
+      body: CustomScrollView(
+        slivers: [
+          SliverList(delegate: SliverChildListDelegate(
+            [
+              Column(
+                children: [
+                  GestureDetector (
+                    onTap: () => Navigator.pushNamed(context, 'profile-detail'),
+                    child: _header(context)
+                  ),
+                  _contentProfile(context),
+                ],
+              ),
+            ]
+          ))
+        ],
       ),
     );
   }
-}
 
-
-Widget _header(BuildContext context) {
+  Widget _header(BuildContext context) {
 
   final sizeHeight = MediaQuery.of(context).size.height;
   final sizeWidth = MediaQuery.of(context).size.width;
@@ -114,7 +136,7 @@ Widget _contentProfile( BuildContext context) {
       children: [
         ListTile(
           leading: Image(
-            image: AssetImage('assets/noti.png'),
+            image: const AssetImage('assets/noti.png'),
             width: sizeHeight * 0.035,
             height: sizeHeight * 0.035,
           ),
@@ -126,7 +148,7 @@ Widget _contentProfile( BuildContext context) {
         ),
         ListTile(
           leading: Image(
-            image: AssetImage('assets/payicon.png'),
+            image: const AssetImage('assets/payicon.png'),
             width: sizeHeight * 0.035,
             height: sizeHeight * 0.035,
           ),
@@ -138,7 +160,7 @@ Widget _contentProfile( BuildContext context) {
         ),
         ListTile(
           leading: Image(
-            image: AssetImage('assets/rewardicon.png'),
+            image: const AssetImage('assets/rewardicon.png'),
             width: sizeHeight * 0.035,
             height: sizeHeight * 0.035,
           ),
@@ -150,7 +172,7 @@ Widget _contentProfile( BuildContext context) {
         ),
         ListTile(
           leading: Image(
-            image: AssetImage('assets/promoicon.png'),
+            image: const AssetImage('assets/promoicon.png'),
             width: sizeHeight * 0.035,
             height: sizeHeight * 0.035,
           ),
@@ -160,11 +182,11 @@ Widget _contentProfile( BuildContext context) {
           ),
           trailing: Icon(Icons.chevron_right, color: grey,)
         ),
-        SizedBox( height: 20.0,),
+        const SizedBox( height: 20.0,),
 
         ListTile(
           leading: Image(
-            image: AssetImage('assets/settingicon.png'),
+            image: const AssetImage('assets/settingicon.png'),
             width: sizeHeight * 0.035,
             height: sizeHeight * 0.035,
           ),
@@ -176,7 +198,7 @@ Widget _contentProfile( BuildContext context) {
         ),
         ListTile(
           leading: Image(
-            image: AssetImage('assets/inviteicon.png'),
+            image: const AssetImage('assets/inviteicon.png'),
             width: sizeHeight * 0.035,
             height: sizeHeight * 0.035,
           ),
@@ -188,7 +210,7 @@ Widget _contentProfile( BuildContext context) {
         ),
         ListTile(
           leading: Image(
-            image: AssetImage('assets/helpicon.png'),
+            image: const AssetImage('assets/helpicon.png'),
             width: sizeHeight * 0.035,
             height: sizeHeight * 0.035,
           ),
@@ -200,7 +222,7 @@ Widget _contentProfile( BuildContext context) {
         ),
         ListTile(
           leading: Image(
-            image: AssetImage('assets/abouticon.png'),
+            image: const AssetImage('assets/abouticon.png'),
             width: sizeHeight * 0.035,
             height: sizeHeight * 0.035,
           ),
@@ -210,7 +232,48 @@ Widget _contentProfile( BuildContext context) {
           ),
           trailing: Icon(Icons.chevron_right, color: grey,)
         ),
+        ListTile(
+          leading: Image(
+            image: const AssetImage('assets/logout.png'),
+            width: sizeHeight * 0.035,
+            height: sizeHeight * 0.035,
+          ),
+          title: HeaderText(
+            text: 'Sign Out',
+            fontWeight: FontWeight.w400,
+          ),
+          trailing: Icon(Icons.chevron_right, color: grey,),
+          onTap: () => _signOut(context),
+        ),
       ],
     ),
   );
 }
+
+
+  Future _signOut( BuildContext context ) async {
+
+    ShowAlertDialog(
+      context,
+      AssetImage('assets/logout.png'),
+      "Sign Out",
+      "Do you want Sign Out?",
+      RoundedButton(
+        context: context, 
+        color: orange, 
+        labelButton: "Log Out", 
+        fnAction: () {
+          _viewModel.signOut().then((_) {
+            Navigator.pushReplacement(context, PageRouteBuilder(pageBuilder: (_,__,___) => const WelcomePage(),
+              transitionDuration: const Duration(seconds: 0)
+            ));
+          });
+        }
+      )
+
+    );
+
+  }
+}
+
+
