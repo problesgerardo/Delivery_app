@@ -1,5 +1,13 @@
+import 'dart:math';
+
+import 'package:delivery_app/src/base/views/BaseView.dart';
+import 'package:delivery_app/src/base/views/LoadingView.dart';
+import 'package:delivery_app/src/features/presentation/login_page/viewModel/LoginViewModel.dart';
+import 'package:delivery_app/src/features/presentation/state_providers/LoadingStateProvider.dart';
 import 'package:delivery_app/src/features/presentation/widgets/buttons/rounded_button.dart';
 import 'package:delivery_app/src/features/presentation/widgets/headers/header_text.dart';
+import 'package:delivery_app/src/features/presentation/widgets/textFormField/CustomTextFormField.dart';
+import 'package:delivery_app/src/utils/helpers/ResultTypes/ResultType.dart';
 import 'package:flutter/material.dart';
 
 //Colors
@@ -10,12 +18,21 @@ import 'package:delivery_app/src/features/presentation/widgets/buttons/back_butt
 
 //UI
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class LoginPage extends StatelessWidget with BaseView {
+
+  final LoginViewModel _viewModel;
+
+  LoginPage({ LoginViewModel? viewModel }) 
+    : _viewModel = viewModel ?? DefaultLoginViewModel();
 
   @override
   Widget build(BuildContext context) {
+
+    //Inicializar el ViewModel
+
+    _viewModel.initState(LoadingState: Provider.of<LoadingStateProvider>(context));
 
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle.light.copyWith(
@@ -23,171 +40,174 @@ class LoginPage extends StatelessWidget {
       )
     );
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-              Image(
-                width: double.infinity,
-                height: 350.0,
-                fit: BoxFit.cover,
-                image: NetworkImage(
-                  'https://images.unsplash.com/photo-1598134493179-51332e56807f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2069&q=80'
-                )
-              ),
-              Container(
-                margin: EdgeInsets.only( top: 50.0 ),
-                child: backButton(context, Colors.white),
-              )
-            ],
-            ),
-      
-            Transform.translate(
-              offset: Offset( 0.0, -20.0 ),
-              child: Container(
-                width: double.infinity,
-                //height: 450.0,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular( 20.0 )
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all( 20.0 ),
-                  child: Center(
-                    child: Column(
-                      children: [
-
-                        HeaderText(text: 'Welcome Back', color: primaryColor, fontWeight: FontWeight.bold, fontSize: 30.0),
-                        
-                        Text(
-                          'Login to your account',
-                          style: TextStyle(
-                            color: grey,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 15.0,
-                          ),
+    return _viewModel.loadingStatusState.isLoading ? loadingView : Scaffold(
+      body: CustomScrollView(
+          slivers: [
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Column(
+                    children: [
+                      Stack(
+                        children: [
+                        Image(
+                          width: double.infinity,
+                          height: 350.0,
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                            'https://images.unsplash.com/photo-1598134493179-51332e56807f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2069&q=80'
+                          )
                         ),
-      
-                        _emailInput(),
-      
-                        _passwordInput(),
-      
-                        RoundedButton(
-                          context: context, 
-                          color: orange, 
-                          labelButton: 'Log in', 
-                          fnAction: (){
-                            Navigator.pushNamed(context, 'tabs');
-                          }
-                        ),
-      
                         Container(
-                          margin: EdgeInsets.only( top: 30.0 ),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, 'forgot-password');
-                            },
-                            child: Text(
-                              'Forgot your password?',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 17.0
+                          margin: EdgeInsets.only( top: 50.0 ),
+                          child: backButton(context, Colors.white),
+                        )
+                      ],
+                      ),
+                
+                      Transform.translate(
+                        offset: Offset( 0.0, -20.0 ),
+                        child: Container(
+                          width: double.infinity,
+                          //height: 450.0,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular( 20.0 )
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all( 20.0 ),
+                            child: Center(
+                              child: Form(
+                                key: _viewModel.formKey,
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                child: Column(
+                                  children: [
+                              
+                                    HeaderText(text: 'Welcome Back', color: primaryColor, fontWeight: FontWeight.bold, fontSize: 30.0),
+                                    
+                                    Text(
+                                      'Login to your account',
+                                      style: TextStyle(
+                                        color: grey,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 15.0,
+                                      ),
+                                    ),
+                                              
+                                    CustomTextFormField(
+                                      textFormFieldType: CustomTextFormFieldType.email, 
+                                      hintText: "Email", 
+                                      delegate: _viewModel,
+                                    ),
+                              
+                                    CustomTextFormField(
+                                      textFormFieldType: CustomTextFormFieldType.password, 
+                                      hintText: "Password", 
+                                      delegate: _viewModel,
+                                    ),
+                                              
+                                    RoundedButton(
+                                      context: context, 
+                                      color: orange, 
+                                      labelButton: 'Log in', 
+                                      fnAction: (){
+                                        _ctaButtonTapped(context);
+                                      }
+                                    ),
+                                              
+                                    Container(
+                                      margin: EdgeInsets.only( top: 30.0 ),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.pushNamed(context, 'forgot-password');
+                                        },
+                                        child: Text(
+                                          'Forgot your password?',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 17.0
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                              
+                                    Container(
+                                      margin: EdgeInsets.only( top: 30.0 ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Don't have an account?",
+                                            style: TextStyle(
+                                              color: grey,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 15.0
+                                            ),
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.symmetric( horizontal: 10.0 ),
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                Navigator.pushNamed(context, 'register');
+                                              },
+                                              child: Text(
+                                                'Sign up',
+                                                style: TextStyle(
+                                                  color: orange,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 15.0
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                              
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-      
-                        Container(
-                          margin: EdgeInsets.only( top: 30.0 ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Don't have an account?",
-                                style: TextStyle(
-                                  color: grey,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 15.0
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.symmetric( horizontal: 10.0 ),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(context, 'register');
-                                  },
-                                  child: Text(
-                                    'Sign up',
-                                    style: TextStyle(
-                                      color: orange,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 15.0
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-      
-                      ],
-                    ),
+                      )
+                    ],
                   ),
-                ),
-              ),
+                
+                ]
+              )
             )
           ],
         ),
-      )
     );
   }
 }
 
+extension UserActions on LoginPage {
 
-Widget _emailInput() {
+  void _ctaButtonTapped( BuildContext context) {
 
-  return Container(
-    margin: EdgeInsets.only( top: 40.0 ),
-    padding: EdgeInsets.only( left: 20.0 ),
-    decoration: BoxDecoration(
-      color: Color.fromRGBO(142, 142, 147, 1.2),
-      borderRadius: BorderRadius.circular(30.0)
-    ),
-    child: TextField(
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        hintText: 'Email',
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none
-        )
-      ),
-    ),
-  );
+    if(_viewModel.isFormValidate()) {
+      _viewModel.login(
+        email: _viewModel.loginModel?.email ?? "", 
+        password: _viewModel.loginModel?.password ?? "",
+      ).then((result) {
+        switch(result.status) {
+          case ResultStatus.success:
+            Navigator.pushNamed(context, 'tabs');
+            break;
+          case ResultStatus.error:
+            if(result.error != null ) {
+              errorStateProvider.setFailure(context: context, value: result.error!);
+            }
+            break;
+        }
+        });
+    }
+
+  }
+
 }
-
-Widget _passwordInput() {
-
-  return Container(
-    margin: EdgeInsets.only( top: 15.0 ),
-    padding: EdgeInsets.only( left: 20.0 ),
-    decoration: BoxDecoration(
-      color: Color.fromRGBO(142, 142, 147, 1.2),
-      borderRadius: BorderRadius.circular(30.0)
-    ),
-    child: TextField(
-      obscureText: true,
-      decoration: InputDecoration(
-        hintText: 'Password',
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none
-        )
-      ),
-    ),
-  );
-}
-
 
 
