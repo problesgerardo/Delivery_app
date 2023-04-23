@@ -1,3 +1,4 @@
+import 'package:delivery_app/src/base/views/BaseView.dart';
 import 'package:delivery_app/src/features/presentation/state_providers/ErrorStateProvider.dart';
 import 'package:delivery_app/src/features/presentation/state_providers/LoadingStateProvider.dart';
 import 'package:flutter/material.dart';
@@ -19,19 +20,42 @@ class AppState extends StatelessWidget {
       ChangeNotifierProvider(create: (_) => ErrorStateProvider()),
       ChangeNotifierProvider(create: (_) => LoadingStateProvider())
     ],
-    child: MyApp(),);
+    child: MyAppUserState(),);
+  }
+}
+
+class MyAppUserState extends StatelessWidget with BaseView {
+  MyAppUserState({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: coordinator.star(),
+      builder: (
+        BuildContext context, 
+        AsyncSnapshot snapshot
+      ) {
+          if( snapshot.hasData ) {
+            return MyApp(initialRoute: snapshot.data);
+          } else {
+            return CircularProgressIndicator();
+          }
+    });
   }
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+
+  final String _initialRoute;
+  
+  MyApp({ required String initialRoute }) : _initialRoute = initialRoute;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: routes,
-      initialRoute: 'welcome',
+      initialRoute: _initialRoute,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
