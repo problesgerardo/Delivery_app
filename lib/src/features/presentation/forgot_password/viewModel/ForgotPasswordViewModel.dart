@@ -16,7 +16,7 @@ class DefaultForgotPasswordViewModel extends ForgotPasswordViewModel {
   final UpdatePasswordUseCase _updatePasswordUseCase;
 
   DefaultForgotPasswordViewModel({ UpdatePasswordUseCase? updatePasswordUseCase })
-    : _updatePasswordUseCase = updatePasswordUseCase ?? DefaultUpdatePasswordUseCase()
+    : _updatePasswordUseCase = updatePasswordUseCase ?? DefaultUpdatePasswordUseCase();
 
   @override
   Future<void> updatePassword() {
