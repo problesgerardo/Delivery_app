@@ -1,7 +1,5 @@
-import 'dart:math';
 
 import 'package:delivery_app/src/base/views/BaseView.dart';
-import 'package:delivery_app/src/base/views/LoadingView.dart';
 import 'package:delivery_app/src/features/presentation/login_page/viewModel/LoginViewModel.dart';
 import 'package:delivery_app/src/features/presentation/state_providers/LoadingStateProvider.dart';
 import 'package:delivery_app/src/features/presentation/widgets/buttons/rounded_button.dart';
@@ -12,9 +10,6 @@ import 'package:flutter/material.dart';
 
 //Colors
 import 'package:delivery_app/src/colors/colors.dart';
-
-//Widgets
-import 'package:delivery_app/src/features/presentation/widgets/buttons/back_button.dart';
 
 //UI
 import 'package:flutter/services.dart';
@@ -32,7 +27,7 @@ class LoginPage extends StatelessWidget with BaseView {
 
     //Inicializar el ViewModel
 
-    _viewModel.initState(LoadingState: Provider.of<LoadingStateProvider>(context));
+    _viewModel.initState(loadingStateProvider: Provider.of<LoadingStateProvider>(context));
 
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle.light.copyWith(
@@ -40,7 +35,7 @@ class LoginPage extends StatelessWidget with BaseView {
       )
     );
 
-    return _viewModel.loadingStatusState.isLoading ? loadingView : Scaffold(
+    return _viewModel.loadingState.isLoading ? loadingView : Scaffold(
       body: CustomScrollView(
           slivers: [
             SliverList(
@@ -49,24 +44,20 @@ class LoginPage extends StatelessWidget with BaseView {
                   Column(
                     children: [
                       Stack(
-                        children: [
-                        Image(
-                          width: double.infinity,
-                          height: 350.0,
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                            'https://images.unsplash.com/photo-1598134493179-51332e56807f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2069&q=80'
-                          )
-                        ),
-                        Container(
-                          margin: EdgeInsets.only( top: 50.0 ),
-                          child: backButton(context, Colors.white),
-                        )
-                      ],
+                        children: const [
+                          Image(
+                            width: double.infinity,
+                            height: 350.0,
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                              'https://images.unsplash.com/photo-1598134493179-51332e56807f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2069&q=80'
+                            )
+                          ),
+                        ],
                       ),
                 
                       Transform.translate(
-                        offset: Offset( 0.0, -20.0 ),
+                        offset: const Offset( 0.0, -20.0 ),
                         child: Container(
                           width: double.infinity,
                           //height: 450.0,
@@ -75,7 +66,7 @@ class LoginPage extends StatelessWidget with BaseView {
                             borderRadius: BorderRadius.circular( 20.0 )
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all( 20.0 ),
+                            padding: const EdgeInsets.all( 20.0 ),
                             child: Center(
                               child: Form(
                                 key: _viewModel.formKey,
@@ -116,12 +107,12 @@ class LoginPage extends StatelessWidget with BaseView {
                                     ),
                                               
                                     Container(
-                                      margin: EdgeInsets.only( top: 30.0 ),
+                                      margin: const EdgeInsets.only( top: 30.0 ),
                                       child: GestureDetector(
                                         onTap: () {
                                           Navigator.pushNamed(context, 'forgot-password');
                                         },
-                                        child: Text(
+                                        child: const Text(
                                           'Forgot your password?',
                                           style: TextStyle(
                                             color: Colors.black,
@@ -133,7 +124,7 @@ class LoginPage extends StatelessWidget with BaseView {
                                     ),
                                               
                                     Container(
-                                      margin: EdgeInsets.only( top: 30.0 ),
+                                      margin: const EdgeInsets.only( top: 30.0 ),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
@@ -146,7 +137,7 @@ class LoginPage extends StatelessWidget with BaseView {
                                             ),
                                           ),
                                           Container(
-                                            margin: EdgeInsets.symmetric( horizontal: 10.0 ),
+                                            margin: const EdgeInsets.symmetric( horizontal: 10.0 ),
                                             child: GestureDetector(
                                               onTap: () {
                                                 Navigator.pushNamed(context, 'register');

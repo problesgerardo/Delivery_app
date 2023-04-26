@@ -3,6 +3,7 @@
 
 import 'package:delivery_app/src/base/apiService/AppError.dart';
 import 'package:delivery_app/src/base/constants/LocalStorageKeys.dart';
+import 'package:delivery_app/src/base/views/BaseView.dart';
 import 'package:delivery_app/src/features/domain/useCases/Auth/SignUpUseCase/SignUpUseCase.dart';
 import 'package:delivery_app/src/features/domain/useCases/Auth/SignUpUseCase/SignUpUseCaseParameters.dart';
 import 'package:delivery_app/src/features/domain/useCases/LocalStorage/LocalStorageUseCaseParameters.dart';
@@ -16,24 +17,17 @@ import '../../../../utils/helpers/ResultTypes/ResultType.dart';
 
 abstract class SignUpViewModelInput {
 
-  late LoadingStateProvider loadingState;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late TextEditingController dateController;
   late DateTime selectecDate;
   SignUpModel? signUpModel = SignUpModel();
-
-  void initState({ required LoadingStateProvider loadingStateProvider });
 
   Future<Result<bool, Failure>> signUp();
 
   bool isFormValidate();
 }
 
-abstract class SignUpViewModel extends SignUpViewModelInput with TextFormFieldDelegate{
-
-
-
-}
+abstract class SignUpViewModel extends SignUpViewModelInput with TextFormFieldDelegate, BaseViewModel {}
 
 
 class DefaultSignUpViewModel extends SignUpViewModel {
