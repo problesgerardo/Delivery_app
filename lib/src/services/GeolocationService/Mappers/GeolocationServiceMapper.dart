@@ -5,6 +5,10 @@ import 'package:geolocator/geolocator.dart';
 
 class GeolocationServiceMapper {
   static PositionEntity mapPosition( Position position ) {
+
+    print("Geolocalizacion - Latitud: ${position.latitude}");
+    print("Geolocalizacion - Longitud: ${position.longitude}");
+
     return PositionEntity(
       longitude: position.longitude, 
       latitude: position.latitude, 
