@@ -16,8 +16,7 @@ class BaseView {
 }
 
 abstract class BaseViewModel {
-    late LoadingStateProvider loadingState;
 
-    void initState({ required LoadingStateProvider loadingStateProvider });
-
+  late LoadingStateProvider loadingState;
+  void initState({ required LoadingStateProvider loadingStateProvider });
 }

@@ -12,7 +12,7 @@ import 'package:delivery_app/src/features/presentation/places_detail_page/view/p
 import 'package:delivery_app/src/features/presentation/profile_detail_page/profile_detail_page.dart';
 import 'package:delivery_app/src/features/presentation/register_page/view/register_page.dart';
 import 'package:delivery_app/src/features/presentation/search_page/view/search_page.dart';
-import 'package:delivery_app/src/features/presentation/tabs/tabs_pages.dart';
+import 'package:delivery_app/src/features/presentation/tabs/view/tabs_pages.dart';
 import 'package:delivery_app/src/features/presentation/welcome_page/view/welcome_page.dart';
 
 final routes = <String, WidgetBuilder> {
