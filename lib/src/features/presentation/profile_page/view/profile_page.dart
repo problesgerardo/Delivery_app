@@ -258,7 +258,7 @@ Widget _contentProfile( BuildContext context) {
       AssetImage('assets/logout.png'),
       "Sign Out",
       "Do you want Sign Out?",
-      RoundedButton(
+      createElevatedButton(
         context: context, 
         color: orange, 
         labelButton: "Log Out", 

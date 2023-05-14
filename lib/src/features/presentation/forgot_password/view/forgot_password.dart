@@ -64,7 +64,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               TextFormFieldEmailUpdatePassword(viewModel: _viewModel,),
 
               //_sendButton(context)
-              RoundedButton(
+              createElevatedButton(
                 context: context,
                 color: orange, 
                 labelButton: 'Send', 
@@ -90,7 +90,7 @@ extension UserActions on _ForgotPasswordState {
         const AssetImage('assets/lock.png'), 
         'Your password have been reset', 
         "You'll shortly receive an email with a code to setup a new password.", 
-        RoundedButton(
+        createElevatedButton(
           context: context, 
           width: 350.0, 
           height: 45.0, 

@@ -44,7 +44,12 @@ class DefaultApiService extends ApiService {
       if( response.statusCode.toString().contains('20')) {
 
         var jsonData = jsonDecode(response.body);
-        return jsonData;
+        //Null Check
+        if( jsonData == null ){
+          throw Failure.fromMessage( message: _Exceptions.formatException);
+        } else {
+          return jsonData;
+        }
       } else {
         throw Failure.fromBody(body: response.body);
       }
@@ -71,7 +76,12 @@ class DefaultApiService extends ApiService {
       if( response.statusCode.toString().contains('20')) {
 
         var jsonData = jsonDecode(response.body);
-        return jsonData;
+        //Null Check
+        if( jsonData == null ){
+          throw Failure.fromMessage( message: _Exceptions.formatException);
+        } else {
+          return jsonData;
+        }
       } else {
         throw Failure.fromBody(body: response.body);
       }
@@ -96,7 +106,12 @@ class DefaultApiService extends ApiService {
       if( response.statusCode.toString().contains('20')) {
 
         var jsonData = jsonDecode(response.body);
-        return jsonData;
+        //Null Check
+        if( jsonData == null ){
+          throw Failure.fromMessage( message: _Exceptions.formatException);
+        } else {
+          return jsonData;
+        }
       } else {
         throw Failure.fromBody(body: response.body);
       }

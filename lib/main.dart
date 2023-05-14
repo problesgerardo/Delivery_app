@@ -1,6 +1,7 @@
 import 'package:delivery_app/src/base/views/BaseView.dart';
 import 'package:delivery_app/src/features/presentation/state_providers/ErrorStateProvider.dart';
 import 'package:delivery_app/src/features/presentation/state_providers/LoadingStateProvider.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 //Routes
@@ -52,6 +53,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    Firebase.initializeApp();
+    
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: routes,
