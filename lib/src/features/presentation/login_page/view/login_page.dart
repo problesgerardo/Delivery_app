@@ -97,7 +97,7 @@ class LoginPage extends StatelessWidget with BaseView {
                                       delegate: _viewModel,
                                     ),
                                               
-                                    RoundedButton(
+                                    createElevatedButton(
                                       context: context, 
                                       color: orange, 
                                       labelButton: 'Log in', 

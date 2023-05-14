@@ -44,7 +44,7 @@ class ErrorAlertView {
                     fontSize: 15.0,
                   ),),
                 ),
-                RoundedButton(
+                createElevatedButton(
                   context: context, 
                   color: orange, 
                   labelButton: "Ir al inicio", 

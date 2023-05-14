@@ -1,4 +1,8 @@
 import 'dart:ui';
+import 'package:delivery_app/src/base/views/BaseView.dart';
+import 'package:delivery_app/src/features/presentation/state_providers/LoadingStateProvider.dart';
+import 'package:delivery_app/src/features/presentation/welcome_page/viewModel/WelcomePageViewModel.dart';
+import 'package:delivery_app/src/utils/helpers/ResultTypes/ResultType.dart';
 import 'package:flutter/material.dart';
 
 import 'package:delivery_app/src/colors/colors.dart';
@@ -7,12 +11,26 @@ import 'package:flutter/services.dart';
 //Widgets
 import 'package:delivery_app/src/features/presentation/widgets/headers/header_text.dart';
 import 'package:delivery_app/src/features/presentation/widgets/buttons/rounded_button.dart';
+import 'package:provider/provider.dart';
 
-class WelcomePage extends StatelessWidget {
+class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
 
   @override
+  State<WelcomePage> createState() => _WelcomePageState();
+}
+
+class _WelcomePageState extends State<WelcomePage> with BaseView {
+
+  final WelcomePageViewModel viewModel;
+
+  _WelcomePageState({ WelcomePageViewModel? welcomePageViewModel })
+    : viewModel = welcomePageViewModel ?? DefaultWelcomePageViewModel();
+
+  @override
   Widget build(BuildContext context) {
+
+    viewModel.initState(loadingStateProvider: Provider.of<LoadingStateProvider>(context));
 
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle.light.copyWith(
@@ -57,12 +75,50 @@ class WelcomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              RoundedButton(context: context, color: orange, labelButton: 'Log in', fnAction: () {Navigator.pushNamed(context, 'login');}),
-              RoundedButton(context: context, color: fbButtonColor, labelButton: 'Connect with Facebook', isWithIcon: true, icon: AssetImage('assets/facebook.png'), fnAction: () {})
+              createElevatedButton(
+                context: context, 
+                color: orange, 
+                labelButton: 'Log in', 
+                fnAction: () {
+                  Navigator.pushNamed(context, 'login');
+                }
+              ),
+              createElevatedButton(    
+                context: context, 
+                labelButton: 'Connect with Google',
+                labelColor: Colors.black,
+                color: white,
+                isWithIcon: true,
+                shape: const StadiumBorder(),
+                icon: const AssetImage('assets/google.png'),
+                fnAction: () {
+                  _signInWithGoogleTapped(context);
+                }
+              )
             ],
           ),
         ],
       )
     );
+  }
+}
+
+extension UserAction on _WelcomePageState {
+
+  _signInWithGoogleTapped( BuildContext context ){
+    viewModel.loadingState.setLoadingState(isLoading: true);
+    viewModel.signInWithGoogle().then((result) {
+      switch( result.status ) {
+        
+        case ResultStatus.success:
+          coordinator.showTabPage(context: context);
+          break;
+        case ResultStatus.error:
+          viewModel.loadingState.setLoadingState(isLoading: false);
+          if( result.error == null ) { return; }
+          errorStateProvider.setFailure(context: context, value: result.error!);
+          break;
+      }
+    });
   }
 }

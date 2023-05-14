@@ -4,6 +4,7 @@ import 'package:delivery_app/src/base/constants/LocalStorageKeys.dart';
 import 'package:delivery_app/src/features/domain/useCases/LocalStorage/FetchLocalStorageUseCase.dart';
 import 'package:delivery_app/src/features/domain/useCases/LocalStorage/LocalStorageUseCaseParameters.dart';
 import 'package:delivery_app/src/features/domain/useCases/User/ValidateCurrentUserUseCase/ValidateCurrentUserUseCase.dart';
+import 'package:flutter/material.dart';
 
 
 class RoutePath {
@@ -29,20 +30,25 @@ class MainCoordinator {
 
   Future<String?> _isUserLogged() async {
     var idToken = await _fetchLocalStorageUseCase.execute(parameters: FetchLocalStorageParameters(key: LocalStorageKeys.idToken));
+    return idToken;
 
     //Revisar si el usuario esta guardado
-    if( idToken == null ) {
+    /*if( idToken == null ) {
       return null;
     }
 
     //Hay un token guardado y vamos a comprobar que el usuario aun existe en la base de datos
-    var _isUserValid = await _validateCurrentUserUseCase.execute(idToken: idToken);
+    var isUserValid = await _validateCurrentUserUseCase.execute(idToken: idToken);
 
-    if( _isUserValid ) {
+    if( isUserValid ) {
       return idToken;
     } else {
       return null;
-    }
+    }*/
+  }
+
+  showTabPage({ required BuildContext context }) {
+    Navigator.pushNamed(context, RoutePath.tabsPath);
   }
 
 }

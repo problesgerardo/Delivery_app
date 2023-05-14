@@ -116,7 +116,7 @@ extension PriviteMethods on _TabsPageState {
       "Enable your location", 
       "Please allow to use your location to show nearby restaurant on the map.", 
       //_doneButton(context, 'Enable Location'),
-      RoundedButton(
+      createElevatedButton(
         context: context, 
         color: orange, 
         labelButton: 'Enable Location', 
